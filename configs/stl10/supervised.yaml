@@ -1,0 +1,35 @@
+ALGORITHM:
+  NAME: "Supervised"
+  LOGIT_ADJUST:
+    APPLY: False
+    TAU: 1.0
+
+MODEL:
+  LOSS:
+    WITH_LABELED_COST_SENSITIVE: False  # False!
+    WARMUP_ITERS: 200000  # deferred reweighting (LDAM)
+    COST_SENSITIVE:
+      LOSS_OVERRIDE: "LDAM"
+      BETA: 0.999
+
+DATASET:
+  BUILDER: "build_stl10_dataset"
+  NAME: "stl10"
+  ROOT: "./data/stl10"
+  NUM_VALID: 500
+  RESOLUTION: 32
+  STL10:
+    NUM_LABELED_HEAD: 450
+    IMB_FACTOR_L: 10
+    NUM_UNLABELED_HEAD: -1
+    IMB_FACTOR_UL: -1
+
+SOLVER:
+  BASE_LR: 0.1
+  APPLY_SCHEDULER: True
+  LR_SCHEDULER_NAME: "WarmupMultiStepLR"
+  STEPS: (199999, 225000,)
+  GAMMA: 0.01
+  WARMUP_ITERS: 6250
+
+OUTPUT_DIR: "outputs/stl10/supervised"

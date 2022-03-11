@@ -1,0 +1,37 @@
+ALGORITHM:
+  NAME: "FixMatchCReST"
+  CONFIDENCE_THRESHOLD: 0.95
+  CREST:
+    GEN_PERIOD_STEPS: 50000  # 1 gen. = 500 steps * 100 epochs
+    ALPHA: 3.0
+    TMIN: 0.5
+    PROGRESSIVE_ALIGN: True  # CReST+: progressive distribution alignment
+
+MODEL:
+  NUM_CLASSES: 100
+  LOSS:
+    UNLABELED_LOSS: "CrossEntropyLoss"
+    UNLABELED_LOSS_WEIGHT: 1.0
+  DIST_ALIGN:
+    APPLY: True
+
+DATASET:
+  BUILDER: "build_cifar100_dataset"
+  NAME: "cifar100"
+  ROOT: "./data/cifar100"
+  NUM_VALID: 5000
+  CIFAR100:
+    NUM_LABELED_HEAD: 150
+    IMB_FACTOR_L: 10
+    NUM_UNLABELED_HEAD: 300
+    IMB_FACTOR_UL: 10
+  REVERSE_UL_DISTRIBUTION: False
+
+  TRANSFORM:
+    STRONG_AUG: True
+
+SOLVER:
+  UNLABELED_BATCH_RATIO: 2
+  MAX_ITER: 250000  # == 5gens * 100 epochs * 500 steps
+
+OUTPUT_DIR: "outputs/cifar100/fixmatch"

@@ -1,0 +1,32 @@
+ALGORITHM:
+  NAME: "FixMatch"
+  CONFIDENCE_THRESHOLD: 0.95
+  DARP:
+    APPLY: False
+
+MODEL:
+  LOSS:
+    UNLABELED_LOSS: "CrossEntropyLoss"
+    UNLABELED_LOSS_WEIGHT: 1.0
+  DIST_ALIGN:
+    APPLY: False
+
+DATASET:
+  BUILDER: "build_stl10_dataset"
+  NAME: "stl10"
+  ROOT: "./data/stl10"
+  NUM_VALID: 500
+  RESOLUTION: 32
+  STL10:
+    NUM_LABELED_HEAD: 450
+    IMB_FACTOR_L: 10
+    NUM_UNLABELED_HEAD: -1  # unknown unlabeled data
+    IMB_FACTOR_UL: -1  # unknown unlabeled data
+
+  TRANSFORM:
+    STRONG_AUG: True
+
+SOLVER:
+  UNLABELED_BATCH_RATIO: 2
+
+OUTPUT_DIR: "outputs/stl10/fixmatch"

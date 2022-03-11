@@ -1,0 +1,39 @@
+ALGORITHM:
+  NAME: "ReMixMatch"
+  CONS_RAMPUP_SCHEDULE: "linear"
+  CONS_RAMPUP_ITERS_RATIO: 0.016
+  REMIXMATCH:
+    NUM_AUG: 2  # number of strong augmentations
+    TEMPERATURE: 0.5
+    MIXUP_ALPHA: 0.75
+    WEIGHT_KL: 0.5  # weight for KL loss (premixup)
+    WEIGHT_ROT: 0.5  # weight for rotation loss
+    LABELED_STRONG_AUG: False
+  DARP:
+    APPLY: False
+
+MODEL:
+  WITH_ROTATION_HEAD: True
+  LOSS:
+    LABELED_LOSS: "CrossEntropyLoss"
+    UNLABELED_LOSS: "CrossEntropyLoss"
+    UNLABELED_LOSS_WEIGHT: 1.5
+  DIST_ALIGN:
+    APPLY: True
+
+DATASET:
+  BUILDER: "build_cifar10_dataset"
+  NAME: "cifar10"
+  ROOT: "./data/cifar10"
+  NUM_VALID: 5000
+  CIFAR10:
+    NUM_LABELED_HEAD: 1500
+    IMB_FACTOR_L: 100
+    NUM_UNLABELED_HEAD: 3000
+    IMB_FACTOR_UL: 100
+  REVERSE_UL_DISTRIBUTION: False
+
+  TRANSFORM:
+    STRONG_AUG: True
+
+OUTPUT_DIR: "outputs/cifar10/remixmatch"

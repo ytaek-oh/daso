@@ -1,0 +1,37 @@
+ALGORITHM:
+  NAME: "DASO"
+  CONFIDENCE_THRESHOLD: 0.95
+  DASO:
+    WITH_DIST_AWARE: True
+    DIST_TEMP: 0.3
+    # blend pseudo-labels with fixed weight (applied only when WITH_DIST_AWARE is False).
+    INTERP_ALPHA: 0.5
+    PSA_LOSS_WEIGHT: 1.0  # loss weight for semantic alignment loss
+  ABC:
+    APPLY: False
+    DASO_PSEUDO_LABEL: True  # when abc is applied, apply DASO on pseudo-labels in abc pipeline
+
+MODEL:
+  LOSS:
+    UNLABELED_LOSS: "CrossEntropyLoss"
+    UNLABELED_LOSS_WEIGHT: 1.0
+
+DATASET:
+  BUILDER: "build_stl10_dataset"
+  NAME: "stl10"
+  ROOT: "./data/stl10"
+  NUM_VALID: 500
+  RESOLUTION: 32
+  STL10:
+    NUM_LABELED_HEAD: 450
+    IMB_FACTOR_L: 10
+    NUM_UNLABELED_HEAD: -1
+    IMB_FACTOR_UL: -1
+
+  TRANSFORM:
+    STRONG_AUG: True
+
+SOLVER:
+  UNLABELED_BATCH_RATIO: 2
+
+OUTPUT_DIR: "outputs/stl10/fixmatch"

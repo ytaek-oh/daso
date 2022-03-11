@@ -1,0 +1,22 @@
+ALGORITHM:
+  NAME: "MeanTeacher"
+  CONS_RAMPUP_SCHEDULE: "linear"
+  CONS_RAMPUP_ITERS_RATIO: 0.4
+
+MODEL:
+  LOSS:
+    UNLABELED_LOSS_WEIGHT: 50.0
+
+DATASET:
+  BUILDER: "build_stl10_dataset"
+  NAME: "stl10"
+  ROOT: "./data/stl10"
+  NUM_VALID: 500
+  RESOLUTION: 32
+  STL10:
+    NUM_LABELED_HEAD: 450
+    IMB_FACTOR_L: 10
+    NUM_UNLABELED_HEAD: -1
+    IMB_FACTOR_UL: -1
+
+OUTPUT_DIR: "outputs/stl10/meanteacher"

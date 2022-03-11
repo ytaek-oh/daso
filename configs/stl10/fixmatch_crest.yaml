@@ -1,0 +1,37 @@
+ALGORITHM:
+  NAME: "FixMatchCReST"
+  CONFIDENCE_THRESHOLD: 0.95
+  CREST:
+    GEN_PERIOD_STEPS: 50000  # 1 gen. = 500 steps * 100 epochs
+    ALPHA: 3.0
+    TMIN: 0.5
+    PROGRESSIVE_ALIGN: True  # CReST+: progressive distribution alignment
+
+MODEL:
+  LOSS:
+    UNLABELED_LOSS: "CrossEntropyLoss"
+    UNLABELED_LOSS_WEIGHT: 1.0
+  DIST_ALIGN:
+    # For STL10 with unknown unlabeled data, we train CReST without dist_align by default.
+    APPLY: False
+
+DATASET:
+  BUILDER: "build_stl10_dataset"
+  NAME: "stl10"
+  ROOT: "./data/stl10"
+  NUM_VALID: 500
+  RESOLUTION: 32
+  STL10:
+    NUM_LABELED_HEAD: 450
+    IMB_FACTOR_L: 10
+    NUM_UNLABELED_HEAD: -1  # unknown unlabeled data
+    IMB_FACTOR_UL: -1  # unknown unlabeled data
+
+  TRANSFORM:
+    STRONG_AUG: True
+
+SOLVER:
+  UNLABELED_BATCH_RATIO: 2
+  MAX_ITER: 250000  # == 5gens * 100 epochs * 500 steps
+
+OUTPUT_DIR: "outputs/stl10/fixmatch"

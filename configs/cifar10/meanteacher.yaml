@@ -1,0 +1,22 @@
+ALGORITHM:
+  NAME: "MeanTeacher"
+  CONS_RAMPUP_SCHEDULE: "linear"
+  CONS_RAMPUP_ITERS_RATIO: 0.4
+
+MODEL:
+  LOSS:
+    UNLABELED_LOSS_WEIGHT: 50.0
+
+DATASET:
+  BUILDER: "build_cifar10_dataset"
+  NAME: "cifar10"
+  ROOT: "./data/cifar10"
+  NUM_VALID: 5000
+  CIFAR10:
+    NUM_LABELED_HEAD: 1500
+    IMB_FACTOR_L: 100
+    NUM_UNLABELED_HEAD: 3000
+    IMB_FACTOR_UL: 100
+  REVERSE_UL_DISTRIBUTION: False
+
+OUTPUT_DIR: "outputs/cifar10/meanteacher"

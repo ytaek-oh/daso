@@ -1,0 +1,33 @@
+ALGORITHM:
+  NAME: "Supervised"
+  LOGIT_ADJUST:
+    APPLY: False
+    TAU: 1.0
+
+MODEL:
+  NUM_CLASSES: 100
+  LOSS:
+    WITH_LABELED_COST_SENSITIVE: False
+    WARMUP_ITERS: 200000  # deferred reweighting (LDAM)
+    COST_SENSITIVE:
+      LOSS_OVERRIDE: "LDAM"
+      BETA: 0.999
+
+DATASET:
+  BUILDER: "build_cifar100_dataset"
+  NAME: "cifar100"
+  ROOT: "./data/cifar100"
+  NUM_VALID: 5000
+  CIFAR100:
+    NUM_LABELED_HEAD: 150
+    IMB_FACTOR_L: 10
+
+SOLVER:
+  BASE_LR: 0.1
+  APPLY_SCHEDULER: True
+  LR_SCHEDULER_NAME: "WarmupMultiStepLR"
+  STEPS: (199999, 225000,)
+  GAMMA: 0.01
+  WARMUP_ITERS: 6250
+
+OUTPUT_DIR: "outputs/cifar100/supervised"
