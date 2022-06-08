@@ -2,11 +2,14 @@
 # DASO: Distribution-Aware Semantics-Oriented Pseudo-label for Imbalanced Semi-Supervised Learning.
 
 This repo provides the official pytorch implementation of our paper:
+
 > [DASO: Distribution-Aware Semantics-Oriented Pseudo-label for Imbalanced Semi-Supervised Learning](https://arxiv.org/abs/2106.05682) 
+>
 > [Youngtaek Oh](https://ytaek-oh.github.io), [Dong-Jin Kim](https://sites.google.com/site/djkimcv/), and [In So Kweon](http://rcv.kaist.ac.kr/index.php?mid=rcv_faculty)
+>
 > CVPR 2022
 
-*The final draft will be updated soon.*
+[[Paper]](https://arxiv.org/abs/2106.05682)  [[Project Page]](https://ytaek-oh.github.io/daso)  
 
 This includes the experiments on CIFAR-10, CIFAR-100, and STL-10 datasets with varying number of data-points and imbalance ratio in semi-supervised learning.
 
@@ -123,10 +126,11 @@ python main.py --config-file configs/{DATASET}/{ALGORITHM}.yaml \
 ## Citation
 If you find our work useful for your research, please cite with the following bibtex:
 ```bibtex
-@article{oh2021distribution,
-  title={Distribution-aware semantics-oriented pseudo-label for imbalanced semi-supervised learning},
-  author={Oh, Youngtaek and Kim, Dong-Jin and Kweon, In So},
-  journal={arXiv preprint arXiv:2106.05682},
-  year={2021}
+@inproceedings{oh2021distribution,
+  title = {DASO: Distribution-aware semantics-oriented pseudo-label for imbalanced semi-supervised learning},
+  author = {Oh, Youngtaek and Kim, Dong-Jin and Kweon, In So},
+  booktitle = {{IEEE} Conference on Computer Vision and Pattern Recognition (CVPR)},
+  year = {2022},
+  pages = {9786-9796}
 }
 ```
